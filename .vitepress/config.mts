@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/blog/",
   lang: "ko-KR",
   title: "이민재",
   description: "안녕하세요, 이민재입니다 :)",
