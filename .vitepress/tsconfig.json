@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["vite/client"],        // ← 요게 핵심 (import.meta.glob 타입 제공)
+    "baseUrl": "."
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.mts",
+    "./**/*.d.ts",
+    "../components/**/*.vue",        // md에서 불러오는 SFC들
+    "../**/*.ts",
+    "../**/*.mts"                    // docs/components 등 TS 파일들
+  ]
+}
