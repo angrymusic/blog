@@ -8,7 +8,14 @@ export default defineConfig(
       lang: "ko-KR",
       title: "<이민재 />",
       description: "안녕하세요, 이민재입니다 :)",
+      head: [
+        [
+          "link",
+          { rel: "icon", type: "image/svg+xml", href: "/blog/images/logo.svg" },
+        ],
+      ],
       themeConfig: {
+        logo: "/images/logo.svg",
         nav: [
           { text: "Thoughts", link: "/thoughts/" },
           { text: "Writes", link: "/writes/" },
