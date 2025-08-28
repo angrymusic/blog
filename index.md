@@ -24,4 +24,4 @@ hero:
 <script setup lang="ts">
 import RecentPosts from './components/RecentPosts.vue' // docs/index.md 기준 경로
 </script>
-<RecentPosts :limit="6" :sections="['reads','writes','thoughts']" />
+<RecentPosts :limit="8" :sections="['reads','writes','thoughts']" />
