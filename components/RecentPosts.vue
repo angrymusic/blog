@@ -19,6 +19,7 @@ const top = data
 
 <template>
   <!-- VitePress 기본 홈의 features 스타일과 비슷한 마크업 -->
+  <div class="recent-post-title">최근 글</div>
   <section class="MyFeatures">
     <div class="container">
       <div class="items">
@@ -30,7 +31,7 @@ const top = data
         >
           <article class="box">
             <div class="eyebrow">
-              {{ it.section }}
+              {{ it.section + (it.subSection ? " • " + it.subSection : "") }}
             </div>
             <h3 class="title">{{ it.title }}</h3>
             <p class="desc">{{ it.description }}</p>
@@ -41,6 +42,11 @@ const top = data
   </section>
 </template>
 <style scoped lang="scss">
+.recent-post-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
 .MyFeatures .container {
   padding-top: 8px;
 
@@ -54,6 +60,7 @@ const top = data
     color: inherit;
   }
   .box {
+    height: 100%;
     background-color: var(--vp-c-bg-soft);
     border: 1px solid var(--vp-c-divider);
     border-radius: 12px;
