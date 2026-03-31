@@ -35,6 +35,7 @@ export default defineConfig(
         documentRootPath: "/", // .vitepress가 있는 루트
         scanStartPath: "thoughts", // 이 폴더만 스캔
         resolvePath: "/thoughts/", // /thoughts/* 에서 이 사이드바 사용
+        useTitleFromFrontmatter: true,
         useTitleFromFileHeading: true,
         hyphenToSpace: true,
         collapsed: false,
@@ -43,6 +44,7 @@ export default defineConfig(
         documentRootPath: "/",
         scanStartPath: "writes",
         resolvePath: "/writes/",
+        useTitleFromFrontmatter: true,
         useTitleFromFileHeading: true,
         hyphenToSpace: true,
         collapsed: false,
@@ -51,6 +53,7 @@ export default defineConfig(
         documentRootPath: "/",
         scanStartPath: "reads",
         resolvePath: "/reads/",
+        useTitleFromFrontmatter: true,
         useTitleFromFileHeading: true,
         hyphenToSpace: true,
         collapsed: false,
