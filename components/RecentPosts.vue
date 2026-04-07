@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { withBase } from "vitepress";
+import { data, type RecentItem } from "../.vitepress/theme/recent.data";
+
 type Section = "reads" | "writes" | "thoughts";
 
 const props = withDefaults(
@@ -10,11 +13,22 @@ const props = withDefaults(
   }
 );
 
-// 로더 출력(JSON)을 import
-import { data } from "../.vitepress/theme/recent.data";
-const top = data
-  .filter((i) => props.sections.includes(i.section))
-  .slice(0, props.limit);
+function toTimestamp(date?: string): number {
+  if (!date) return Number.NEGATIVE_INFINITY;
+  const timestamp = Date.parse(date);
+  return Number.isFinite(timestamp) ? timestamp : Number.NEGATIVE_INFINITY;
+}
+
+const top = computed(() =>
+  [...data]
+    .filter((item) => props.sections.includes(item.section))
+    .sort((a, b) => toTimestamp(b.date) - toTimestamp(a.date))
+    .slice(0, props.limit)
+);
+
+function isNewest(item: RecentItem): boolean {
+  return top.value[0]?.url === item.url;
+}
 </script>
 
 <template>
@@ -27,9 +41,11 @@ const top = data
           v-for="it in top"
           :key="it.url"
           class="item"
+          :class="{ 'is-new': isNewest(it) }"
           :href="withBase(it.url)"
         >
           <article class="box">
+            <span v-if="isNewest(it)" class="new-badge">NEW</span>
             <div class="eyebrow">
               {{ it.section + (it.subSection ? " • " + it.subSection : "") }}
             </div>
@@ -60,6 +76,7 @@ const top = data
     color: inherit;
   }
   .box {
+    position: relative;
     height: 100%;
     background-color: var(--vp-c-bg-soft);
     border: 1px solid var(--vp-c-divider);
@@ -69,6 +86,28 @@ const top = data
   }
   .item:hover .box {
     border-color: var(--vp-c-brand-1);
+  }
+  .item.is-new .box {
+    border-color: color-mix(in srgb, var(--vp-c-brand-1) 55%, var(--vp-c-divider));
+  }
+  .new-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: var(--vp-c-brand-1);
+    color: var(--vp-c-bg);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+  .item.is-new .eyebrow {
+    padding-right: 56px;
   }
   .eyebrow {
     font-size: 12px;

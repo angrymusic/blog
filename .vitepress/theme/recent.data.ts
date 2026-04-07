@@ -33,6 +33,14 @@ function tsFromDate(d?: string): number {
   return Number.isFinite(n) ? n : Number.NEGATIVE_INFINITY;
 }
 
+function normalizeDate(value: unknown): string | undefined {
+  if (typeof value === "string") return value;
+  if (value instanceof Date && Number.isFinite(value.getTime())) {
+    return value.toISOString();
+  }
+  return undefined;
+}
+
 type ContentItem = {
   url: string;
   frontmatter?: Record<string, unknown>;
@@ -70,7 +78,7 @@ export default defineLoader({
             const fmTitle = typeof fm.title === "string" ? fm.title : undefined;
             const fmDesc =
               typeof fm.description === "string" ? fm.description : undefined;
-            const fmDate = typeof fm.date === "string" ? fm.date : undefined;
+            const fmDate = normalizeDate(fm.date);
             const fmDraft = typeof fm.draft === "boolean" ? fm.draft : false;
 
             if (fmDraft) continue; // draft면 제외
