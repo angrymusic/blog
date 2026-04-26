@@ -8,6 +8,7 @@ export default defineConfig(
       lang: "ko-KR",
       title: "<이민재 />",
       description: "안녕하세요, 이민재입니다 :)",
+      srcExclude: ["writes/A특공대 (Agents Orchestration)/**"],
       head: [
         [
           "link",
